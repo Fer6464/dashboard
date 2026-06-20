@@ -2,9 +2,12 @@
 import { Grid } from '@mui/material';
 import HeaderUI from './components/HeaderUI';
 import AlertUI from './components/AlertUI'
+import AniCardsUI from './components/AniCardsUI'
+import useFetchTopAnimes from './hooks/useFetchData';
 import './App.css'
 
 function App() {
+   const topAnimes = useFetchTopAnimes();
 
   return (
       <Grid>
@@ -20,7 +23,21 @@ function App() {
         </Grid>
 
          {/* Selector */}
-         <Grid>Elemento: Selector</Grid>
+         Top Animes
+         <Grid container spacing={1} sx={{justifyContent: "center"}}>
+            {topAnimes.map((anime) => (
+               <Grid size = {2}>
+                  <AniCardsUI 
+                     key={anime.anime_id}
+                     name={anime.title}
+                     score={`${anime.score}`}
+                     popularity={`${anime.popularity}`}
+                     url={anime.image_url}
+                  />
+               </Grid>
+            ))}
+            
+         </Grid>
 
          {/* Indicadores */}
          <Grid>Elemento: Indicadores</Grid>
